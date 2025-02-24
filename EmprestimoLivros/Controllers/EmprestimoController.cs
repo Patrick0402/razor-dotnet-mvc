@@ -8,10 +8,7 @@ namespace EmprestimoLivros.Controllers
     {
         readonly private ApplicationDbContext _db;
 
-        public EmprestimoController(ApplicationDbContext db)
-        {
-            _db = db;
-        }
+        public EmprestimoController(ApplicationDbContext db) => _db = db;
 
         [HttpGet]
         public IActionResult Index()
@@ -34,18 +31,22 @@ namespace EmprestimoLivros.Controllers
                 _db.Emprestimos.Add(emprestimo);
                 _db.SaveChanges();
 
+                TempData["MensagemSucesso"] = "O empréstimo foi cadastrado com sucesso!";
+
                 return RedirectToAction("Index");
             }
+
+            TempData["MensagemErro"] = "Houve um erro ao cadastrar o empréstimo";
 
             return View();
         }
 
         [HttpGet]
-
         public IActionResult Editar(int? id)
         {
             if (id == null || id == 0)
             {
+                TempData["MensagemErro"] = "O empréstimo não foi encontrado";
                 return NotFound();
             }
 
@@ -53,6 +54,7 @@ namespace EmprestimoLivros.Controllers
 
             if (emprestimos == null)
             {
+                TempData["MensagemErro"] = "O empréstimo não foi encontrado";
                 return NotFound();
             }
 
@@ -77,22 +79,25 @@ namespace EmprestimoLivros.Controllers
                         emprestimoDb.DataUltimaAtualizacao = DateTime.Now;
 
                         _db.SaveChanges();
+                        TempData["MensagemSucesso"] = "O empréstimo foi editado com sucesso!";
+
                     }
                 }
 
                 return RedirectToAction("Index");
             }
 
+            TempData["MensagemErro"] = "Houve um erro ao editar o empréstimo";
+
             return View(emprestimo);
         }
 
-
         [HttpGet]
-
         public IActionResult Excluir(int? id)
         {
             if (id == null || id == 0)
             {
+                TempData["MensagemErro"] = "O empréstimo não foi encontrado";
                 return NotFound();
             }
 
@@ -100,6 +105,7 @@ namespace EmprestimoLivros.Controllers
 
             if (emprestimos == null)
             {
+                TempData["MensagemErro"] = "O empréstimo não foi encontrado";
                 return NotFound();
             }
 
@@ -111,13 +117,17 @@ namespace EmprestimoLivros.Controllers
         {
             if (emprestimo == null)
             {
+                TempData["MensagemErro"] = "O empréstimo não foi encontrado";
                 return NotFound();
             }
 
             _db.Emprestimos.Remove(emprestimo);
             _db.SaveChanges();
 
+            TempData["MensagemSucesso"] = "O empréstimo foi removido com sucesso!";
+
             return RedirectToAction("Index");
         }
     }
 }
+
