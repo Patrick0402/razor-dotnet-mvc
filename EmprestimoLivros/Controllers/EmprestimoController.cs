@@ -1,6 +1,8 @@
-﻿using EmprestimoLivros.Data;
+﻿using ClosedXML.Excel;
+using EmprestimoLivros.Data;
 using EmprestimoLivros.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace EmprestimoLivros.Controllers
 {
@@ -28,6 +30,9 @@ namespace EmprestimoLivros.Controllers
         {
             if (ModelState.IsValid)
             {
+                emprestimo.DataEmprestimo = DateTime.Now;
+                emprestimo.DataUltimaAtualizacao = DateTime.Now;
+
                 _db.Emprestimos.Add(emprestimo);
                 _db.SaveChanges();
 
@@ -127,6 +132,47 @@ namespace EmprestimoLivros.Controllers
             TempData["MensagemSucesso"] = "O empréstimo foi removido com sucesso!";
 
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Exportar()
+        {
+            var dados = GetDados();
+
+            using (XLWorkbook workbook = new XLWorkbook())
+            {
+                workbook.AddWorksheet(dados, "Dados dos Empréstimos");
+
+                using(MemoryStream stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    return File(stream.ToArray(), "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Emprestimos.xlsx");
+                }
+            }
+        }
+
+        private DataTable GetDados()
+        {
+            DataTable dt = new DataTable();
+            dt.TableName = "Dados dos Empréstimos";
+
+            dt.Columns.Add("Recebedor", typeof(string));
+            dt.Columns.Add("Fornecedor", typeof(string));
+            dt.Columns.Add("Livro emprestado", typeof(string));
+            dt.Columns.Add("Data do empréstimo", typeof(DateTime));
+            dt.Columns.Add("Data da última atualizacao", typeof(DateTime));
+
+            var dados = _db.Emprestimos.ToList();
+
+            if (dados.Count() > 0)
+            {
+                dados.ForEach(emprestimo =>
+                {
+                    dt.Rows.Add(emprestimo.Recebedor, emprestimo.Fornecedor, emprestimo.LivroEmprestado, emprestimo.DataEmprestimo, emprestimo.DataUltimaAtualizacao);
+                });
+            }
+
+            return dt;
         }
     }
 }

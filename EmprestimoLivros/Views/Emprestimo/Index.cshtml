@@ -2,7 +2,10 @@
 
 <div class="d-flex justify-content-between align-items-center mb-5">
     <h1>Empréstimos</h1>
-    <a class="btn btn-success mx-2" asp-area="" asp-controller="Emprestimo" asp-action="Cadastrar"><i class="bi bi-file-earmark-plus mx-2"></i>Cadastrar novo empréstimo</a>
+    <div>
+        <a class="btn btn-success mx-2" asp-area="" asp-controller="Emprestimo" asp-action="Exportar"><i class="bi bi-file-arrow-down mx-2"></i>Exportar</a>
+        <a class="btn btn-success mx-2" asp-area="" asp-controller="Emprestimo" asp-action="Cadastrar"><i class="bi bi-file-earmark-plus mx-2"></i>Cadastrar novo empréstimo</a>
+    </div>
 </div>
 
 @if(TempData["MensagemSucesso"] != null)
@@ -29,6 +32,8 @@
                 <th scope="col" class="align-middle">Recebedor</th>
                 <th scope="col" class="align-middle">Fornecedor</th>
                 <th scope="col" class="align-middle">Livro</th>
+                <th scope="col" class="align-middle">Data do Empréstimo</th>
+
                 <th scope="col" class="align-middle">Última atualização</th>
                 <th scope="col" class="align-middle"></th>
             </tr>
@@ -43,6 +48,7 @@
                         <td class="align-middle text-truncate" style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="@emprestimo.Recebedor">@emprestimo.Recebedor</td>
                         <td class="align-middle text-truncate" style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="@emprestimo.Fornecedor">@emprestimo.Fornecedor</td>
                         <td class="align-middle text-truncate" style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="@emprestimo.LivroEmprestado">@emprestimo.LivroEmprestado</td>
+                        <td class="align-middle text-truncate" style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="@emprestimo.DataEmprestimo">@emprestimo.DataEmprestimo</td>
                         <td class="align-middle text-truncate" style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="@emprestimo.DataUltimaAtualizacao">@emprestimo.DataUltimaAtualizacao</td>
                         <td class="align-middle">
                             <div class="d-flex justify-content-around">
