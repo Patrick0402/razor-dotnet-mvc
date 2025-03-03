@@ -31,24 +31,32 @@
         <div class="mb-3">
             <label for="nome" class="form-label">Nome</label>
             <input type="text" class="form-control" id="nome" asp-for="Nome">
+            <span asp-validation-for="Nome" class="text-danger"></span>
         </div>
         <div class="mb-3">
             <label for="sobrenome" class="form-label">Sobrenome</label>
             <input type="text" class="form-control" id="sobrenome" asp-for="Sobrenome">
+            <span asp-validation-for="Sobrenome" class="text-danger"></span>
+
         </div>
         <div class="mb-3">
             <label for="email" class="form-label">Endereço de e-mail</label>
             <input type="email" class="form-control" id="email" asp-for="Email">
+            <span asp-validation-for="Email" class="text-danger"></span>
+
         </div>
         <div class="mb-3">
             <label for="senha" class="form-label">Senha</label>
             <input type="password" class="form-control" id="senha" asp-for="Senha">
+            <span asp-validation-for="Senha" class="text-danger"></span>
+
         </div>
         <div class="mb-3">
             <label for="confirmaSenha" class="form-label">Confirme a senha</label>
             <input type="password" class="form-control" id="confirmaSenha" asp-for="ConfirmaSenha">
+            <span asp-validation-for="ConfirmaSenha" class="text-danger"></span>
+
         </div>
-        <div asp-validation-summary="All" class="text-danger"></div>
         <div class="d-flex justify-content-center">
             <button type="submit" class="btn btn-primary w-25 mx-2">Cadastrar</button>
             <a class="btn btn-outline-secondary w-25 mx-2" asp-controller="Login" asp-action="Index">Voltar</a>

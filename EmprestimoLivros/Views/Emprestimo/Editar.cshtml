@@ -3,6 +3,23 @@
     ViewData["Title"] = "Editar Empréstimo";
 }
 
+@if (TempData["MensagemSucesso"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["MensagemSucesso"]
+        @(TempData["MensagemErro"] = null)
+    </div>
+}
+
+@if (TempData["MensagemErro"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["MensagemErro"]
+        @(TempData["MensagemSucesso"] = null)
+
+    </div>
+}
+
 <div class="container bg-dark p-5 rounded-5">
 
     <div class="mb-5 text-center">
