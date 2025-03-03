@@ -1,20 +1,26 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using EmprestimoLivros.Models;
+using EmprestimoLivros.Services.SessaoService;
 
 namespace EmprestimoLivros.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly ISessaoInterface _sessaoInterface;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ISessaoInterface sessaoInterface)
     {
-        _logger = logger;
+        _sessaoInterface = sessaoInterface;
     }
 
     public IActionResult Index()
     {
+        var usuario = _sessaoInterface.BuscarSessao();
+        if (usuario == null)
+        {
+            return RedirectToAction("Index", "Login");
+        }
         return View();
     }
 

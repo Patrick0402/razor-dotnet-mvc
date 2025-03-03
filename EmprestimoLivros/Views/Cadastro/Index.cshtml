@@ -1,0 +1,57 @@
+﻿@using EmprestimoLivros.Dto
+@model UsuarioRegisterDto
+
+@{
+    Layout = "_LayoutDeslogado";
+}
+
+@if (TempData["MensagemSucesso"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["MensagemSucesso"]
+        @(TempData["MensagemErro"] = null)
+    </div>
+}
+
+@if (TempData["MensagemErro"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["MensagemErro"]
+        @(TempData["MensagemSucesso"] = null)
+
+    </div>
+}
+
+
+<div class="container">
+        
+    <h1>Cadastro de usuário</h1>
+
+    <form method="POST" asp-controller="Cadastro" asp-action="Index">
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="nome" asp-for="Nome">
+        </div>
+        <div class="mb-3">
+            <label for="sobrenome" class="form-label">Sobrenome</label>
+            <input type="text" class="form-control" id="sobrenome" asp-for="Sobrenome">
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Endereço de e-mail</label>
+            <input type="email" class="form-control" id="email" asp-for="Email">
+        </div>
+        <div class="mb-3">
+            <label for="senha" class="form-label">Senha</label>
+            <input type="password" class="form-control" id="senha" asp-for="Senha">
+        </div>
+        <div class="mb-3">
+            <label for="confirmaSenha" class="form-label">Confirme a senha</label>
+            <input type="password" class="form-control" id="confirmaSenha" asp-for="ConfirmaSenha">
+        </div>
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary w-25 mx-2">Cadastrar</button>
+            <a class="btn btn-outline-secondary w-25 mx-2" asp-controller="Login" asp-action="Index">Voltar</a>
+        </div>
+    </form>
+</div>

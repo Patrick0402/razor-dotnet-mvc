@@ -1,0 +1,42 @@
+﻿@using EmprestimoLivros.Dto
+@model UsuarioLoginDto
+
+@{
+    Layout = "_LayoutDeslogado";
+}
+
+@if (TempData["MensagemSucesso"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["MensagemSucesso"]
+        @(TempData["MensagemErro"] = null)
+    </div>
+}
+
+@if (TempData["MensagemErro"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["MensagemErro"]
+        @(TempData["MensagemSucesso"] = null)
+
+    </div>
+}
+
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<div class="container">
+    <form method="post" asp-controller="Login" asp-action="Index">
+        <div class="mb-3">
+            <label for="email" class="form-label">Endereço de e-mail</label>
+            <input type="email" class="form-control" id="email" asp-for="Email">
+        </div>
+        <div class="mb-3">
+            <label for="senha" class="form-label">Senha</label>
+            <input type="password" class="form-control" id="senha" asp-for="Senha">
+        </div>
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary w-25 mx-2">Entrar</button>
+            <a class="btn btn-outline-secondary w-25 mx-2" asp-controller="Cadastro" asp-action="Index">Cadastrar-se</a>
+        </div>
+    </form>
+</div>
